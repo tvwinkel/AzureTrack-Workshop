@@ -1,7 +1,5 @@
-using System;
 using System.IO;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats;
@@ -14,7 +12,7 @@ namespace RMotownFestival.Functions
     {
         [FunctionName("ThumbnailFunction")]
         public static void Run([BlobTrigger("festivalpics/{name}", Connection = "BlobStorageConnection")]Stream image, string name, ILogger log,
-            [Blob("festivalthums/{name}", FileAccess.Write, Connection = "BlobStorageConnection")]Stream thumbnail)
+            [Blob("festivalthumbs/{name}", FileAccess.Write, Connection = "BlobStorageConnection")]Stream thumbnail)
         {
             using Image<Rgba32> input = Image.Load<Rgba32>(image, out IImageFormat format);
             input.Mutate(i =>
